@@ -21,8 +21,6 @@ function getProxies(index){
 		body.replace(/\.(.*?)\{display\:none\}/g, function () {
 		    //arguments[0] is the entire match
 		    fakeNums[arguments[1]] = 1
-		    //var url = arguments[1].replace(/<b>|<\/b>/g,"")
-		    //sites.push(url)
 		})
 
 		body.replace(/<td>(.*?)<\/td>/g, function () {
@@ -38,7 +36,6 @@ function getProxies(index){
 		})
 
 		body.replace(/<\/style>(.*?)<\/td>/g, function () {
-		    //arguments[0] is the entire match
 		    var temp = arguments[1]
 		    temp = temp.replace(/<span class\=\"(.*?)\">.*?<\/span>/g,function(){
 		    	if(fakeNums[arguments[1]]){
