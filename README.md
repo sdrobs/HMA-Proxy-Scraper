@@ -3,7 +3,7 @@ HMA-Proxy-Scraper
 
 Uses node.js to pull/parse working http proxies from Hidemyass.com
 
-Runs callback function on completion. Input miscellaneous ops iterating the proxies here in order to switch proxies on each request (eg. vote stuffing, IP-ban evasion, etc.).
+Runs callback function on completion. Input miscellaneous ops iterating the proxies here in order to switch proxies on each request (eg. changing your ip address on each request).
 
 Output in the form of key:value --> IP : Port.
 ```
