@@ -1,21 +1,20 @@
 var request = require('request');
 
-function doneScraping(proxies){
-    console.log(proxies)
-}
+var getProxies = function (successCallback, errorCallback, pageNum, proxiesScraped) {
 
-var getProxies = function (index,callback,proxiesScraped){
-
-    if (!proxiesScraped){
+    if (!proxiesScraped) {
         proxiesScraped = {};
     }
 
-    var i = ((index == 1) ? '' : index);
+    if (!pageNum){
+        pageNum = 1;
+    }
+
     var fakeNums = {};
 
-    request('http://www.hidemyass.com/proxy-list/' + i,function(err,res,body){
-        if(!res || res.statusCode != 200)
-            throw "Response code was not 200";
+    request('http://www.hidemyass.com/proxy-list/' + pageNum, function (err, res, body) {
+        if (!res || res.statusCode != 200)
+            errorCallback("Response code was not 200");
 
         var ips = [];
         var ports = [];
@@ -27,12 +26,12 @@ var getProxies = function (index,callback,proxiesScraped){
         });
 
         body.replace(/<td>(.*?)<\/td>/g, function () {
-            if(arguments[1] == "HTTP" || arguments[1] == "HTTPS" || arguments[1] == "socks4/5")
+            if (arguments[1] == "HTTP" || arguments[1] == "HTTPS" || arguments[1] == "socks4/5")
                 types.push(arguments[1])
         });
 
         var trim = body;
-        trim = trim.replace(/\s/g,'');
+        trim = trim.replace(/\s/g, '');
 
         trim.replace(/<td>([0-9]+)<\/td>/g, function () {
             ports.push(arguments[1])
@@ -40,41 +39,39 @@ var getProxies = function (index,callback,proxiesScraped){
 
         body.replace(/<\/style>(.*?)<\/td>/g, function () {
             var temp = arguments[1];
-            temp = temp.replace(/<span class\=\"(.*?)\">.*?<\/span>/g,function(){
-                if(fakeNums[arguments[1]]){
+            temp = temp.replace(/<span class\=\"(.*?)\">.*?<\/span>/g, function () {
+                if (fakeNums[arguments[1]]) {
                     return ''
                 }
                 return arguments[0]
             });
-            temp = temp.replace(/<span style\=\"display\:none\">(.*?)<\/span>/g,"");
-            temp = temp.replace(/<div style\=\"display\:none\">(.*?)<\/div>/g,"");
-            temp = temp.replace(/<(.*?)>/g,'');
+            temp = temp.replace(/<span style\=\"display\:none\">(.*?)<\/span>/g, "");
+            temp = temp.replace(/<div style\=\"display\:none\">(.*?)<\/div>/g, "");
+            temp = temp.replace(/<(.*?)>/g, '');
             ips.push(temp)
         });
         var count = 0;
 
-        if(ips.length > 0){
-            if(ports.length == 0 || ports.length != ips.length || ips.length != types.length)
-                throw "Regex parsing has failed.";
+        if (ips.length > 0) {
+            if (ports.length == 0 || ports.length != ips.length || ips.length != types.length)
+                errorCallback("Regex parsing has failed.");
 
-            for(var i = 0; i < ips.length; i++){
-                if(types[i] == 'HTTP' || types[i] == 'HTTPS'){
+            for (var i = 0; i < ips.length; i++) {
+                if (types[i] == 'HTTP' || types[i] == 'HTTPS') {
                     count++;
                     proxiesScraped[ips[i]] = ports[i]
                 }
             }
 
-            console.log('collected ' + count + ' http proxies from page ' + index);
+            console.log('collected ' + count + ' http proxies from page ' + pageNum);
 
-            getProxies(index+1,callback,proxiesScraped)
+            getProxies(successCallback, errorCallback, pageNum + 1, proxiesScraped)
         }
-        else{
-            callback(proxiesScraped)
+        else {
+            successCallback(proxiesScraped)
         }
 
     })
 };
 
-getProxies(1,doneScraping);
-
-module.exports = {getProxies:getProxies};
+module.exports = {getProxies: getProxies};
