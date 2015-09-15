@@ -13,8 +13,10 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
     var fakeNums = {};
 
     request('http://www.hidemyass.com/proxy-list/' + pageNum, function (err, res, body) {
-        if (!res || res.statusCode != 200)
+        if (!res || res.statusCode != 200) {
             errorCallback("Response code was not 200");
+            return;
+        }
 
         var ips = [];
         var ports = [];
@@ -53,8 +55,10 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
         var count = 0;
 
         if (ips.length > 0) {
-            if (ports.length == 0 || ports.length != ips.length || ips.length != types.length)
+            if (ports.length == 0 || ports.length != ips.length || ips.length != types.length){
                 errorCallback("Regex parsing has failed.");
+                return;
+            }
 
             for (var i = 0; i < ips.length; i++) {
                 if (types[i] == 'HTTP' || types[i] == 'HTTPS') {
