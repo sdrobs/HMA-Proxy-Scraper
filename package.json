@@ -1,23 +1,25 @@
 {
-  "name": "HMA-Proxy-Scraper",
-  "version": "1.0.0",
-  "description": "HMA-Proxy-Scraper\r =================",
-  "main": "scraper.js",
+  "name": "proxplease",
+  "version": "0.0.1",
+  "description": "Easily download the latest ip:port proxies from HideMyAss",
   "dependencies": {
+    "clui": "^0.3.1",
     "request": "^2.62.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "contributors": [
+    "sdrobs wrote it, I just put some stuff around it"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sdrobs/HMA-Proxy-Scraper.git"
+    "url": "https://github.com/corydolphin/HMA-Proxy-Scraper.git"
   },
-  "author": "",
+  "author": "Cory Dolphin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sdrobs/HMA-Proxy-Scraper/issues"
+    "url": "https://github.com/corydolphin/HMA-Proxy-Scraper/issues"
   },
-  "homepage": "https://github.com/sdrobs/HMA-Proxy-Scraper"
+  "homepage": "https://github.com/corydolphin/HMA-Proxy-Scraper",
+  "bin": {
+    "proxplease": "bin/proxplease.js"
+  }
 }
