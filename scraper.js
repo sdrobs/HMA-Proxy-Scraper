@@ -3,7 +3,7 @@ var request = require('request');
 var getProxies = function (successCallback, errorCallback, pageNum, proxiesScraped) {
 
     if (!proxiesScraped) {
-        proxiesScraped = {};
+        proxiesScraped = [];
     }
 
     if (!pageNum){
@@ -63,12 +63,9 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
             for (var i = 0; i < ips.length; i++) {
                 if (types[i] == 'HTTP' || types[i] == 'HTTPS') {
                     count++;
-                    proxiesScraped[ips[i]] = ports[i]
+                    proxiesScraped.push(ips[i] + ':' + ports[i])
                 }
             }
-
-            console.log('collected ' + count + ' http proxies from page ' + pageNum);
-
             getProxies(successCallback, errorCallback, pageNum + 1, proxiesScraped)
         }
         else {
