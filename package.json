@@ -1,5 +1,5 @@
 {
-  "name": "HMA-Proxy-Scraper",
+  "name": "hma-proxy-scraper",
   "version": "0.0.3",
   "description": "HMA-Proxy-Scraper\r =================",
   "main": "scraper.js",
@@ -15,7 +15,7 @@
     "url": "https://github.com/sdrobs/HMA-Proxy-Scraper.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sdrobs/HMA-Proxy-Scraper/issues"
   },
