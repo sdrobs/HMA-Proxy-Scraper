@@ -1,6 +1,6 @@
 var request = require('request');
 
-var getProxies = function (successCallback, errorCallback, pageNum, proxiesScraped) {
+var getProxies = function (callback, pageNum, proxiesScraped) {
 
     if (!proxiesScraped) {
         proxiesScraped = {};
@@ -14,7 +14,7 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
 
     request('http://www.hidemyass.com/proxy-list/' + pageNum, function (err, res, body) {
         if (!res || res.statusCode != 200) {
-            errorCallback("Response code was not 200");
+            callback("Response code was not 200");
             return;
         }
 
@@ -56,7 +56,7 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
 
         if (ips.length > 0) {
             if (ports.length == 0 || ports.length != ips.length || ips.length != types.length){
-                errorCallback("Regex parsing has failed.");
+                callback("Regex parsing has failed.");
                 return;
             }
 
@@ -69,10 +69,10 @@ var getProxies = function (successCallback, errorCallback, pageNum, proxiesScrap
 
             console.log('collected ' + count + ' http proxies from page ' + pageNum);
 
-            getProxies(successCallback, errorCallback, pageNum + 1, proxiesScraped)
+            getProxies(callback, pageNum + 1, proxiesScraped)
         }
         else {
-            successCallback(proxiesScraped)
+            callback(null,proxiesScraped)
         }
 
     })

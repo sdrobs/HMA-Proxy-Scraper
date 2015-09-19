@@ -1,11 +1,22 @@
 HMA-Proxy-Scraper
 =================
 
-Uses node.js to pull/parse working http proxies from Hidemyass.com
+A node.js module to pull/parse working http(s) proxies from Hidemyass.com
 
-Runs callback function on completion. Input miscellaneous ops iterating the proxies here in order to switch proxies on each request (eg. changing your ip address on each request).
+Usage is as follows:
+```
+var hma = require('./scraper');
 
-Output in the form of key:value --> IP : Port.
+hma.getProxies(function (err,proxies) {
+    if(err)
+    	throw err
+   	
+   	console.log(proxies)
+});
+
+```
+
+Output is in the form of key:value --> IP : Port.
 ```
 { 
   '202.118.236.130' : '3128',
