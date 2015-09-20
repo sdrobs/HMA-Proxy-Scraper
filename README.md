@@ -11,7 +11,7 @@ $ npm install hma-proxy-scraper
 
 Usage is as follows:
 ```
-var hma = require('./scraper');
+var hma = require('hma-proxy-scraper');
 
 hma.getProxies(function (err,proxies) {
     if(err)
