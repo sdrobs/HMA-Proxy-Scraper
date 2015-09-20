@@ -3,6 +3,12 @@ HMA-Proxy-Scraper
 
 A node.js module to pull/parse working http(s) proxies from Hidemyass.com
 
+Installation:
+```
+$ npm install hma-proxy-scraper
+```
+
+
 Usage is as follows:
 ```
 var hma = require('./scraper');
