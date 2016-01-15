@@ -1,6 +1,6 @@
 {
   "name": "hma-proxy-scraper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "HMA-Proxy-Scraper\r =================",
   "main": "scraper.js",
   "dependencies": {
