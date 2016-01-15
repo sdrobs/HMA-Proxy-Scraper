@@ -27,9 +27,10 @@ var getProxies = function (callback, pageNum, proxiesScraped) {
             fakeNums[arguments[1]] = 1
         });
 
-        body.replace(/<td>(.*?)<\/td>/g, function () {
-            if (arguments[1] == "HTTP" || arguments[1] == "HTTPS" || arguments[1] == "socks4/5")
-                types.push(arguments[1])
+        body.replace(/<td>([\S\s]*?)<\/td>/g, function () {
+			var str = arguments[1].trim();
+            if (str === "HTTP" || str === "HTTPS" || str === "socks4/5")
+                types.push(str);
         });
 
         var trim = body;
@@ -39,7 +40,7 @@ var getProxies = function (callback, pageNum, proxiesScraped) {
             ports.push(arguments[1])
         });
 
-        body.replace(/<\/style>(.*?)<\/td>/g, function () {
+        body.replace(/{display:inline}[\S\s]?<\/style>([\S\s]*?)<\/td>/g, function () {
             var temp = arguments[1];
             temp = temp.replace(/<span class\=\"(.*?)\">.*?<\/span>/g, function () {
                 if (fakeNums[arguments[1]]) {
@@ -50,6 +51,7 @@ var getProxies = function (callback, pageNum, proxiesScraped) {
             temp = temp.replace(/<span style\=\"display\:none\">(.*?)<\/span>/g, "");
             temp = temp.replace(/<div style\=\"display\:none\">(.*?)<\/div>/g, "");
             temp = temp.replace(/<(.*?)>/g, '');
+			temp = temp.trim();
             ips.push(temp)
         });
         var count = 0;
