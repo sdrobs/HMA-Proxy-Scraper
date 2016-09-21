@@ -12,7 +12,8 @@ var getProxies = function (callback, pageNum, proxiesScraped) {
 
     var fakeNums = {};
 
-    request('http://www.hidemyass.com/proxy-list/' + pageNum, function (err, res, body) {
+    request('http://proxylist.hidemyass.com/search-1292985/' + pageNum, function (err, res, body) {
+    	/* search-1292985 is 100 proxies per page */
         if (!res || res.statusCode != 200) {
             callback("Response code was not 200");
             return;
