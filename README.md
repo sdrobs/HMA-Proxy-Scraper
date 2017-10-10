@@ -1,6 +1,10 @@
 HMA-Proxy-Scraper
 =================
 
+`Hidemyass.com free proxy list is down for now!`
+=================
+ `It will be up again in the next few monthes`
+
 A node.js module to pull/parse working http(s) proxies from Hidemyass.com
 
 Installation:
